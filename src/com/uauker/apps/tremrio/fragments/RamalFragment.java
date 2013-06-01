@@ -46,7 +46,7 @@ public class RamalFragment extends Fragment {
 				container, false);
 
 		this.stationsListView = (ListView) v.findViewById(R.id.ramal_stations);
-
+		
 		this.messageViewStub = (ViewStub) v
 				.findViewById(R.id.ramal_stations_info);
 
