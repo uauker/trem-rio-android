@@ -23,6 +23,7 @@ import com.google.gson.JsonParser;
 import com.uauker.apps.tremrio.R;
 import com.uauker.apps.tremrio.adapters.RamalStationAdapter;
 import com.uauker.apps.tremrio.helpers.BannerHelper;
+import com.uauker.apps.tremrio.helpers.NetworkHelper;
 import com.uauker.apps.tremrio.models.Station;
 
 public class RamalFragment extends Fragment {
@@ -45,8 +46,9 @@ public class RamalFragment extends Fragment {
 		View view = (RelativeLayout) inflater.inflate(R.layout.ramal_fragment,
 				container, false);
 
-		this.stationsListView = (ListView) view.findViewById(R.id.ramal_stations);
-		
+		this.stationsListView = (ListView) view
+				.findViewById(R.id.ramal_stations);
+
 		this.messageViewStub = (ViewStub) view
 				.findViewById(R.id.ramal_stations_info);
 
@@ -57,16 +59,23 @@ public class RamalFragment extends Fragment {
 	public void onViewCreated(View view, Bundle savedInstanceState) {
 		super.onViewCreated(view, savedInstanceState);
 
+		if (!NetworkHelper.isConnectingToInternet(getActivity())) {
+			this.messageViewStub.setLayoutResource(R.layout.without_internet);
+			this.messageViewStub.setVisibility(View.VISIBLE);
+
+			return;
+		}
+
 		setUpRamal(view);
 	}
 
 	private void setUpRamal(View v) {
 		this.adView = BannerHelper.setUpAdmob(v);
-		
+
 		this.task = new RamalAsyncTask();
 		this.task.execute();
 	}
-	
+
 	@Override
 	public void onDestroy() {
 		super.onDestroy();
@@ -84,9 +93,10 @@ public class RamalFragment extends Fragment {
 		protected void onPreExecute() {
 			super.onPreExecute();
 
-			RamalFragment.this.messageViewStub.setLayoutResource(R.layout.loading);
+			RamalFragment.this.messageViewStub
+					.setLayoutResource(R.layout.loading);
 			RamalFragment.this.messageViewStub.setVisibility(View.VISIBLE);
-			
+
 			RamalFragment.this.stationsListView.setVisibility(View.GONE);
 		}
 
