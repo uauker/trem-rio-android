@@ -4,7 +4,9 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Vector;
 
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
@@ -136,5 +138,20 @@ public class MainActivity extends FragmentActivity implements
 	@Override
 	public void onPageScrollStateChanged(int state) {
 
+	}
+
+	@Override
+	public void onBackPressed() {
+		new AlertDialog.Builder(this)
+				.setMessage(R.string.exit_application)
+				.setCancelable(false)
+				.setPositiveButton(R.string.yes,
+						new DialogInterface.OnClickListener() {
+							@Override
+							public void onClick(DialogInterface dialog,
+									int which) {
+								finish();
+							}
+						}).setNegativeButton(R.string.no, null).show();
 	}
 }
