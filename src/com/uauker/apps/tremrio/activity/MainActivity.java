@@ -85,8 +85,6 @@ public class MainActivity extends FragmentActivity implements
 				.add(Fragment.instantiate(this, RamalFragment.class.getName()));
 		fragments.add(Fragment.instantiate(this,
 				TelephoneFragment.class.getName()));
-		fragments.add(Fragment.instantiate(this,
-				TelephoneFragment.class.getName()));
 
 		this.mPagerAdapter = new ViewPagerAdapter(
 				super.getSupportFragmentManager(), fragments);
@@ -103,13 +101,6 @@ public class MainActivity extends FragmentActivity implements
 				.setIndicator(getResources().getString(R.string.ramais)),
 				(new TabInfo("Tab3", RamalFragment.class, args)));
 
-		this.AddTab(
-				this,
-				this.mTabHost,
-				this.mTabHost.newTabSpec("Tab2").setIndicator(
-						getResources().getString(R.string.useful_telephones)),
-						(new TabInfo("Tab2", TelephoneFragment.class, args)));
-		
 		this.AddTab(
 				this,
 				this.mTabHost,
