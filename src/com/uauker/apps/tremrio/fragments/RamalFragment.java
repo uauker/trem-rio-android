@@ -42,29 +42,31 @@ public class RamalFragment extends Fragment {
 			return null;
 		}
 
-		View v = (RelativeLayout) inflater.inflate(R.layout.ramal_fragment,
+		View view = (RelativeLayout) inflater.inflate(R.layout.ramal_fragment,
 				container, false);
 
-		this.stationsListView = (ListView) v.findViewById(R.id.ramal_stations);
+		this.stationsListView = (ListView) view.findViewById(R.id.ramal_stations);
 		
-		this.messageViewStub = (ViewStub) v
+		this.messageViewStub = (ViewStub) view
 				.findViewById(R.id.ramal_stations_info);
 
-		this.messageViewStub.setLayoutResource(R.layout.loading);
-
-		this.adView = BannerHelper.setUpAdmob(v);
-
-		return v;
+		return view;
 	}
 
 	@Override
 	public void onViewCreated(View view, Bundle savedInstanceState) {
 		super.onViewCreated(view, savedInstanceState);
 
+		setUpRamal(view);
+	}
+
+	private void setUpRamal(View v) {
+		this.adView = BannerHelper.setUpAdmob(v);
+		
 		this.task = new RamalAsyncTask();
 		this.task.execute();
 	}
-
+	
 	@Override
 	public void onDestroy() {
 		super.onDestroy();
@@ -82,7 +84,9 @@ public class RamalFragment extends Fragment {
 		protected void onPreExecute() {
 			super.onPreExecute();
 
+			RamalFragment.this.messageViewStub.setLayoutResource(R.layout.loading);
 			RamalFragment.this.messageViewStub.setVisibility(View.VISIBLE);
+			
 			RamalFragment.this.stationsListView.setVisibility(View.GONE);
 		}
 
