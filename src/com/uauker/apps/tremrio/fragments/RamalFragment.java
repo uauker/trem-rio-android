@@ -12,6 +12,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewStub;
+import android.widget.Button;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
 
@@ -26,7 +27,7 @@ import com.uauker.apps.tremrio.helpers.BannerHelper;
 import com.uauker.apps.tremrio.helpers.NetworkHelper;
 import com.uauker.apps.tremrio.models.Station;
 
-public class RamalFragment extends Fragment {
+public class RamalFragment extends Fragment implements View.OnClickListener {
 
 	ViewStub messageViewStub;
 
@@ -62,6 +63,11 @@ public class RamalFragment extends Fragment {
 		if (!NetworkHelper.isConnectingToInternet(getActivity())) {
 			this.messageViewStub.setLayoutResource(R.layout.without_internet);
 			this.messageViewStub.setVisibility(View.VISIBLE);
+
+			Button buttonWithoutInternet = (Button) getActivity().findViewById(
+					R.id.without_internet_button_try_again);
+
+			buttonWithoutInternet.setOnClickListener(this);
 
 			return;
 		}
@@ -140,5 +146,12 @@ public class RamalFragment extends Fragment {
 					.setAdapter(newsGeolocalizedAdapter);
 		}
 
+	}
+
+	@Override
+	public void onClick(View v) {
+		if (NetworkHelper.isConnectingToInternet(getActivity())) {
+			setUpRamal(this.getView());
+		}
 	}
 }
