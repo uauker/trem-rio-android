@@ -1,6 +1,5 @@
 package com.uauker.apps.tremrio.adapters;
 
-import java.security.acl.Owner;
 import java.util.List;
 
 import android.content.Context;
