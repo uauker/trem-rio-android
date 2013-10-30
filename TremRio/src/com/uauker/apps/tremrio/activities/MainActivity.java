@@ -60,7 +60,7 @@ public class MainActivity extends ActionBarActivity {
 				GravityCompat.START);
 
 		MenuRowAdapter adapter = new MenuRowAdapter(this);
-		
+
 		for (String name : this.menuNames) {
 			adapter.add(name);
 		}
