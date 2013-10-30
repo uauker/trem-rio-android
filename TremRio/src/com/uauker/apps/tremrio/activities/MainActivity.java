@@ -50,8 +50,6 @@ public class MainActivity extends ActionBarActivity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
 
-		sharedPreferences = SharedPreferencesHelper.getInstance(this);
-
 		menuNames = getResources().getStringArray(R.array.array_menu);
 		mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layoutt);
 		mDrawerList = (ListView) findViewById(R.id.left_drawer);
@@ -80,6 +78,8 @@ public class MainActivity extends ActionBarActivity {
 
 		if (savedInstanceState == null) {
 			switchContentByPosition(0);
+
+			cleanMenuSelectedItem();
 		}
 	}
 
@@ -93,7 +93,6 @@ public class MainActivity extends ActionBarActivity {
 	@Override
 	public void finish() {
 		super.finish();
-		sharedPreferences.setString(SELECTED_MENU_ROW, null);
 	}
 
 	@Override
@@ -154,6 +153,13 @@ public class MainActivity extends ActionBarActivity {
 
 		mDrawerList.setItemChecked(position, true);
 		mDrawerLayout.closeDrawer(mDrawerList);
+	}
+
+	private void cleanMenuSelectedItem() {
+		sharedPreferences = SharedPreferencesHelper
+				.getInstance(getApplicationContext());
+
+		sharedPreferences.setString(SELECTED_MENU_ROW, null);
 	}
 
 	private Fragment getFragmentByPosition(int position) {
