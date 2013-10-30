@@ -1,0 +1,43 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:ads="http://schemas.android.com/apk/lib/com.google.ads"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/background_default"
+    android:orientation="vertical" >
+
+    <ViewStub
+        android:id="@+id/apps_loading"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:visibility="gone" />
+
+    <ViewStub
+        android:id="@+id/apps_internet_failure"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:visibility="gone" />
+
+    <ViewStub
+        android:id="@+id/apps_info"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:visibility="gone" />
+
+    <TextView
+        android:id="@+id/apps_list_empty_message"
+        android:layout_width="match_parent"
+        android:layout_height="fill_parent"
+        android:layout_margin="16dp"
+        android:gravity="center"
+        android:text="@string/empty_list"
+        android:textSize="20sp"
+        android:visibility="gone" />
+
+    <ListView
+        android:id="@+id/apps_listview"
+        android:layout_width="match_parent"
+        android:layout_height="fill_parent"
+        android:divider="@android:color/transparent"
+        android:listSelector="@android:color/transparent" />
+
+</RelativeLayout>
