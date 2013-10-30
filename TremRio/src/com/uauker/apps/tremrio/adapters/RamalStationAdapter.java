@@ -53,7 +53,8 @@ public class RamalStationAdapter extends ArrayAdapter<String> {
 		
 		TextView startIndicator = (TextView) rowView
 				.findViewById(R.id.ramal_start_direction);
-
+		startIndicator.setText(station.startDirection);
+		
 		TextView startDirectionStatus = (TextView) rowView
 				.findViewById(R.id.ramal_start_direction_status);
 		startDirectionStatus.setText(station.startDirectionStatus);
