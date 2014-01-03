@@ -60,6 +60,8 @@ public class RamalFragment extends Fragment implements OnClickToTryAgain {
 			return null;
 		}
 
+		this.ownerActivity.setTitle(R.string.app_name);
+		
 		this.cache = ACache.get(this.ownerActivity);
 
 		View view = (RelativeLayout) inflater.inflate(R.layout.ramal_fragment,
