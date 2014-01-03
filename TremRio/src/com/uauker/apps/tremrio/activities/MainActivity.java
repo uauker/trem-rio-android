@@ -23,6 +23,7 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import com.uauker.apps.tremrio.R;
+import com.uauker.apps.tremrio.fragments.TicketFragment;
 import com.uauker.apps.tremrio.fragments.RamalFragment;
 import com.uauker.apps.tremrio.fragments.TelephoneFragment;
 import com.uauker.apps.tremrio.fragments.TrainMapFragment;
@@ -41,7 +42,7 @@ public class MainActivity extends ActionBarActivity {
 
 	public SharedPreferencesHelper sharedPreferences;
 
-	public Fragment[] fragments = { new RamalFragment(),
+	public Fragment[] fragments = { new RamalFragment(), new TicketFragment(),
 			new TrainMapFragment(), new TelephoneFragment() };
 
 	@SuppressLint("ResourceAsColor")

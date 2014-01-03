@@ -3,6 +3,7 @@
 
     <string-array name="array_menu">
         <item>Ramais de Trem</item>
+        <item>Tarifas</item>
         <item>Mapa de Trens</item>
         <item>Telefones Úteis</item>
     </string-array>
