@@ -17,8 +17,10 @@
     
     <string name="call_to">Ligar para %s</string>
     
-    <string name="ramais">Ramais</string>
+    <string name="ramais">Ramais dos Trens</string>
+    <string name="tickets">Tarifas</string>
     <string name="stations">Estações</string>
+    <string name="train_maps">Mapa de Trens</string>
     <string name="useful_telephones">Telefones Úteis</string>
     
     <string name="without_internet">Verique sua conexão de internet ou tente novamente mais tarde.</string>

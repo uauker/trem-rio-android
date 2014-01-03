@@ -56,6 +56,8 @@ public class TicketFragment extends Fragment implements OnClickToTryAgain {
 			return null;
 		}
 		
+		this.ownerActivity.setTitle(R.string.tickets);
+		
 		this.cache = ACache.get(this.ownerActivity);
 
 		View view = (RelativeLayout) inflater.inflate(R.layout.ticket_fragment,

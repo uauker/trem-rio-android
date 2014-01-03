@@ -20,7 +20,7 @@ public class TrainMapFragment extends Fragment {
 	ImageView mImageView;
 	PhotoViewAttacher mAttacher;
 
-	Activity ownerAcitivy;
+	Activity ownerActivity;
 
 	AdView adView;
 	
@@ -29,6 +29,8 @@ public class TrainMapFragment extends Fragment {
 			Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 
+		this.ownerActivity.setTitle(R.string.train_maps);
+		
 		View view = (RelativeLayout) inflater.inflate(
 				R.layout.train_map_fragment, container, false);
 
@@ -52,7 +54,7 @@ public class TrainMapFragment extends Fragment {
 	public void onAttach(Activity activity) {
 		super.onAttach(activity);
 
-		this.ownerAcitivy = activity;
+		this.ownerActivity = activity;
 	}
 
 }

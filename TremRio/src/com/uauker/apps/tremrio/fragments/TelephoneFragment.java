@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
+import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -40,15 +41,18 @@ public class TelephoneFragment extends Fragment implements OnItemClickListener {
 	List<Telephone> telephones;
 
 	AdView adView;
+	
+	private Activity ownerActivity;
 
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
-
 		if (container == null) {
 			return null;
 		}
 
+		this.ownerActivity.setTitle(R.string.useful_telephones);
+		
 		View v = (RelativeLayout) inflater.inflate(R.layout.telephone_fragment,
 				container, false);
 
@@ -104,6 +108,13 @@ public class TelephoneFragment extends Fragment implements OnItemClickListener {
 		builder.create().show();
 	}
 
+	@Override
+	public void onAttach(Activity activity) {
+		super.onAttach(activity);
+
+		this.ownerActivity = activity;
+	}
+	
 	@Override
 	public void onDestroy() {
 		super.onDestroy();
