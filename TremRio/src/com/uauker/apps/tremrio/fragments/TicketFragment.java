@@ -1,7 +1,6 @@
 package com.uauker.apps.tremrio.fragments;
 
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 
 import org.afinal.simplecache.ACache;
@@ -17,20 +16,13 @@ import android.widget.ListView;
 import android.widget.RelativeLayout;
 
 import com.google.ads.AdView;
-import com.google.gson.Gson;
-import com.google.gson.JsonArray;
-import com.google.gson.JsonElement;
-import com.google.gson.JsonParser;
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.AsyncHttpResponseHandler;
 import com.uauker.apps.tremrio.R;
-import com.uauker.apps.tremrio.adapters.RamalStationAdapter;
 import com.uauker.apps.tremrio.adapters.TicketAdapter;
-import com.uauker.apps.tremrio.fragments.TicketFragment.InternUrlAsyncTask;
 import com.uauker.apps.tremrio.helpers.BannerHelper;
 import com.uauker.apps.tremrio.helpers.TryAgainHelper;
 import com.uauker.apps.tremrio.helpers.TryAgainHelper.OnClickToTryAgain;
-import com.uauker.apps.tremrio.models.Station;
 import com.uauker.apps.tremrio.models.Ticket;
 
 public class TicketFragment extends Fragment implements OnClickToTryAgain {
