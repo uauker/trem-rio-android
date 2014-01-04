@@ -1,7 +1,6 @@
 package com.uauker.apps.tremrio.fragments;
 
 import java.util.ArrayList;
-import java.util.Iterator;
 
 import org.afinal.simplecache.ACache;
 
@@ -16,10 +15,6 @@ import android.widget.ListView;
 import android.widget.RelativeLayout;
 
 import com.google.ads.AdView;
-import com.google.gson.Gson;
-import com.google.gson.JsonArray;
-import com.google.gson.JsonElement;
-import com.google.gson.JsonParser;
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.AsyncHttpResponseHandler;
 import com.uauker.apps.tremrio.R;
@@ -31,8 +26,6 @@ import com.uauker.apps.tremrio.models.Station;
 
 public class RamalFragment extends Fragment implements OnClickToTryAgain {
 
-	private static final String HEROKU_RAMAL = "http://www.uauker.com/api/tremrio/v1/ramal";
-	
 	public static final String SUPERVIA_RAMAL_URL = "http://www.supervia.com.br/mobile/";
 
 	public static final int CACHE_TIME = 5 * 60;
@@ -151,22 +144,9 @@ public class RamalFragment extends Fragment implements OnClickToTryAgain {
 			super.onSuccess(result);
 
 			try {
-//				Gson gson = new Gson();
-//				JsonArray content = new JsonParser().parse(result)
-//						.getAsJsonArray();
-//
-//				Iterator<JsonElement> it = content.iterator();
-
 				RamalFragment.this.traffics.clear();
 
 				RamalFragment.this.traffics = (ArrayList<Station>) Station.parse(result);
-				
-//				while (it.hasNext()) {
-//					JsonElement newsJson = it.next();
-//					Station station = gson.fromJson(newsJson, Station.class);
-//
-//					RamalFragment.this.traffics.add(station);
-//				}
 
 				RamalFragment.this.setupListView();
 				
