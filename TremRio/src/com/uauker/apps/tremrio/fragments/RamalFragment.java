@@ -32,6 +32,8 @@ import com.uauker.apps.tremrio.models.Station;
 public class RamalFragment extends Fragment implements OnClickToTryAgain {
 
 	private static final String HEROKU_RAMAL = "http://www.uauker.com/api/tremrio/v1/ramal";
+	
+	public static final String SUPERVIA_RAMAL_URL = "http://www.supervia.com.br/mobile/";
 
 	public static final int CACHE_TIME = 5 * 60;
 
@@ -104,14 +106,14 @@ public class RamalFragment extends Fragment implements OnClickToTryAgain {
 	}
 
 	private void loadStations() {
-		this.traffics = ((ArrayList<Station>) cache.getAsObject(HEROKU_RAMAL));
+		this.traffics = ((ArrayList<Station>) cache.getAsObject(SUPERVIA_RAMAL_URL));
 
 		InternUrlAsyncTask internUrlAsyncTask = new InternUrlAsyncTask();
 
 		if (this.traffics == null || this.traffics.size() == 0) {
 			traffics = new ArrayList<Station>();
 
-			client.get(HEROKU_RAMAL, internUrlAsyncTask);
+			client.get(SUPERVIA_RAMAL_URL, internUrlAsyncTask);
 		} else {
 			setupListView();
 		}
@@ -149,20 +151,22 @@ public class RamalFragment extends Fragment implements OnClickToTryAgain {
 			super.onSuccess(result);
 
 			try {
-				Gson gson = new Gson();
-				JsonArray content = new JsonParser().parse(result)
-						.getAsJsonArray();
-
-				Iterator<JsonElement> it = content.iterator();
+//				Gson gson = new Gson();
+//				JsonArray content = new JsonParser().parse(result)
+//						.getAsJsonArray();
+//
+//				Iterator<JsonElement> it = content.iterator();
 
 				RamalFragment.this.traffics.clear();
 
-				while (it.hasNext()) {
-					JsonElement newsJson = it.next();
-					Station station = gson.fromJson(newsJson, Station.class);
-
-					RamalFragment.this.traffics.add(station);
-				}
+				RamalFragment.this.traffics = (ArrayList<Station>) Station.parse(result);
+				
+//				while (it.hasNext()) {
+//					JsonElement newsJson = it.next();
+//					Station station = gson.fromJson(newsJson, Station.class);
+//
+//					RamalFragment.this.traffics.add(station);
+//				}
 
 				RamalFragment.this.setupListView();
 				
