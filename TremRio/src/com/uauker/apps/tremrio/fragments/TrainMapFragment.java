@@ -1,9 +1,5 @@
 package com.uauker.apps.tremrio.fragments;
 
-import com.google.ads.AdView;
-import com.uauker.apps.tremrio.R;
-import com.uauker.apps.tremrio.helpers.BannerHelper;
-
 import uk.co.senab.photoview.PhotoViewAttacher;
 import android.app.Activity;
 import android.graphics.drawable.Drawable;
@@ -14,6 +10,10 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
+
+import com.google.ads.AdView;
+import com.uauker.apps.tremrio.R;
+import com.uauker.apps.tremrio.helpers.BannerHelper;
 
 public class TrainMapFragment extends Fragment {
 

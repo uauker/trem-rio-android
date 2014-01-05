@@ -22,10 +22,11 @@ import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.bugsense.trace.BugSenseHandler;
 import com.uauker.apps.tremrio.R;
-import com.uauker.apps.tremrio.fragments.TicketFragment;
 import com.uauker.apps.tremrio.fragments.RamalFragment;
 import com.uauker.apps.tremrio.fragments.TelephoneFragment;
+import com.uauker.apps.tremrio.fragments.TicketFragment;
 import com.uauker.apps.tremrio.fragments.TrainMapFragment;
 import com.uauker.apps.tremrio.helpers.SharedPreferencesHelper;
 
@@ -49,6 +50,9 @@ public class MainActivity extends ActionBarActivity {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		
+		BugSenseHandler.initAndStartSession(MainActivity.this, "d0325253");
+		
 		setContentView(R.layout.activity_main);
 
 		menuNames = getResources().getStringArray(R.array.array_menu);

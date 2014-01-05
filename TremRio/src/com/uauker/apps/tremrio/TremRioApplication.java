@@ -2,6 +2,10 @@ package com.uauker.apps.tremrio;
 
 import java.io.File;
 
+import android.app.Application;
+import android.content.Context;
+import android.graphics.Bitmap.CompressFormat;
+
 import com.nostra13.universalimageloader.cache.disc.impl.UnlimitedDiscCache;
 import com.nostra13.universalimageloader.cache.memory.impl.LruMemoryCache;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
@@ -11,11 +15,6 @@ import com.nostra13.universalimageloader.core.assist.ImageScaleType;
 import com.nostra13.universalimageloader.core.assist.QueueProcessingType;
 import com.nostra13.universalimageloader.core.display.FadeInBitmapDisplayer;
 import com.nostra13.universalimageloader.utils.StorageUtils;
-import com.uauker.apps.tremrio.R;
-
-import android.app.Application;
-import android.content.Context;
-import android.graphics.Bitmap.CompressFormat;
 
 public class TremRioApplication extends Application {
 	
