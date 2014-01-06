@@ -17,6 +17,9 @@ import android.widget.ListView;
 import android.widget.RelativeLayout;
 
 import com.google.ads.AdView;
+import com.google.gson.Gson;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.AsyncHttpResponseHandler;
 import com.uauker.apps.tremrio.R;
@@ -25,10 +28,11 @@ import com.uauker.apps.tremrio.helpers.BannerHelper;
 import com.uauker.apps.tremrio.helpers.TryAgainHelper;
 import com.uauker.apps.tremrio.helpers.TryAgainHelper.OnClickToTryAgain;
 import com.uauker.apps.tremrio.models.Station;
+import com.uauker.apps.tremrio.models.StationHtml;
 
 public class RamalFragment extends Fragment implements OnClickToTryAgain {
 
-	public static final String SUPERVIA_RAMAL_URL = "http://www.supervia.com.br/mobile/";
+	public static final String SUPERVIA_RAMAL_URL = "http://www.supervia.com.br/ping_obj3ipRamalUpdate.php";
 
 	public static final int CACHE_TIME = 5 * 60;
 
@@ -56,11 +60,11 @@ public class RamalFragment extends Fragment implements OnClickToTryAgain {
 		if (container == null) {
 			return null;
 		}
-		
+
 		setHasOptionsMenu(true);
 
 		this.ownerActivity.setTitle(R.string.app_name);
-		
+
 		this.cache = ACache.get(this.ownerActivity);
 
 		View view = (RelativeLayout) inflater.inflate(R.layout.ramal_fragment,
@@ -86,7 +90,7 @@ public class RamalFragment extends Fragment implements OnClickToTryAgain {
 		this.loadStations();
 
 		this.adView = BannerHelper.setUpAdmob(view);
-		
+
 		return view;
 	}
 
@@ -96,12 +100,12 @@ public class RamalFragment extends Fragment implements OnClickToTryAgain {
 
 		this.ownerActivity = activity;
 	}
-	
+
 	@Override
 	public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
-	    super.onCreateOptionsMenu(menu,inflater);
-	    
-	    inflater.inflate(R.menu.menu_config, menu);
+		super.onCreateOptionsMenu(menu, inflater);
+
+		inflater.inflate(R.menu.menu_config, menu);
 	}
 
 	@Override
@@ -110,12 +114,16 @@ public class RamalFragment extends Fragment implements OnClickToTryAgain {
 	}
 
 	private void loadStations() {
-		this.traffics = ((ArrayList<Station>) cache.getAsObject(SUPERVIA_RAMAL_URL));
+		this.traffics = ((ArrayList<Station>) cache
+				.getAsObject(SUPERVIA_RAMAL_URL));
 
 		InternUrlAsyncTask internUrlAsyncTask = new InternUrlAsyncTask();
 
 		if (this.traffics == null || this.traffics.size() == 0) {
 			traffics = new ArrayList<Station>();
+
+			client.addHeader("X-Requested-With", "XMLHttpRequest");
+			client.addHeader("Referer", "http://supervia.com.br/");
 
 			client.get(SUPERVIA_RAMAL_URL, internUrlAsyncTask);
 		} else {
@@ -155,16 +163,22 @@ public class RamalFragment extends Fragment implements OnClickToTryAgain {
 			super.onSuccess(result);
 
 			try {
+				Gson gson = new Gson();
+				JsonObject content = new JsonParser().parse(result)
+						.getAsJsonObject();
+				StationHtml stationHTML = gson.fromJson(content, StationHtml.class);
+
 				RamalFragment.this.traffics.clear();
 
-				RamalFragment.this.traffics = (ArrayList<Station>) Station.parse(result);
+				RamalFragment.this.traffics = (ArrayList<Station>) Station
+						.parse(stationHTML.txt);
 
 				RamalFragment.this.setupListView();
-				
+
 				RamalFragment.this.loadingViewStub.setVisibility(View.GONE);
 				RamalFragment.this.internetFailureViewStub
 						.setVisibility(View.GONE);
-				RamalFragment.this.stationsListView.setVisibility(View.VISIBLE);				
+				RamalFragment.this.stationsListView.setVisibility(View.VISIBLE);
 			} catch (Exception e) {
 				this.onFailure(e, "");
 			}
