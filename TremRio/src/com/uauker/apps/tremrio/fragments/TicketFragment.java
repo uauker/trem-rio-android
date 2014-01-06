@@ -9,6 +9,8 @@ import android.app.Activity;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewStub;
@@ -56,6 +58,8 @@ public class TicketFragment extends Fragment implements OnClickToTryAgain {
 			return null;
 		}
 		
+		setHasOptionsMenu(true);
+		
 		this.ownerActivity.setTitle(R.string.tickets);
 		
 		this.cache = ACache.get(this.ownerActivity);
@@ -93,6 +97,13 @@ public class TicketFragment extends Fragment implements OnClickToTryAgain {
 		this.ownerActivity = activity;
 	}
 
+	@Override
+	public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+	    super.onCreateOptionsMenu(menu,inflater);
+	    
+	    inflater.inflate(R.menu.menu_config, menu);
+	}
+	
 	@Override
 	public void tryAgain() {
 		this.loadTickets();

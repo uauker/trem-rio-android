@@ -6,6 +6,8 @@ import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
@@ -23,14 +25,16 @@ public class TrainMapFragment extends Fragment {
 	Activity ownerActivity;
 
 	AdView adView;
-	
+
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 
-		this.ownerActivity.setTitle(R.string.train_maps);
+		setHasOptionsMenu(true);
 		
+		this.ownerActivity.setTitle(R.string.train_maps);
+
 		View view = (RelativeLayout) inflater.inflate(
 				R.layout.train_map_fragment, container, false);
 
@@ -38,15 +42,16 @@ public class TrainMapFragment extends Fragment {
 		mImageView = (ImageView) view.findViewById(R.id.iv_photo);
 
 		// Set the Drawable displayed
-		Drawable bitmap = getResources().getDrawable(R.drawable.diagrama_de_rede);
+		Drawable bitmap = getResources().getDrawable(
+				R.drawable.diagrama_de_rede);
 		mImageView.setImageDrawable(bitmap);
 
 		// Attach a PhotoViewAttacher, which takes care of all of the zooming
 		// functionality.
 		mAttacher = new PhotoViewAttacher(mImageView);
-		
+
 		this.adView = BannerHelper.setUpAdmob(view);
-		
+
 		return view;
 	}
 
@@ -55,6 +60,13 @@ public class TrainMapFragment extends Fragment {
 		super.onAttach(activity);
 
 		this.ownerActivity = activity;
+	}
+
+	@Override
+	public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+		super.onCreateOptionsMenu(menu, inflater);
+
+		inflater.inflate(R.menu.menu_config, menu);
 	}
 
 }

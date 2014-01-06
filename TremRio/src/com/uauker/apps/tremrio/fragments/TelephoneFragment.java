@@ -16,6 +16,8 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
@@ -50,6 +52,8 @@ public class TelephoneFragment extends Fragment implements OnItemClickListener {
 		if (container == null) {
 			return null;
 		}
+		
+		setHasOptionsMenu(true);
 
 		this.ownerActivity.setTitle(R.string.useful_telephones);
 		
@@ -113,6 +117,13 @@ public class TelephoneFragment extends Fragment implements OnItemClickListener {
 		super.onAttach(activity);
 
 		this.ownerActivity = activity;
+	}
+	
+	@Override
+	public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+	    super.onCreateOptionsMenu(menu,inflater);
+	    
+	    inflater.inflate(R.menu.menu_config, menu);
 	}
 	
 	@Override
