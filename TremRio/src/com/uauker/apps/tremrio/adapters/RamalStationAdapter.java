@@ -28,46 +28,23 @@ public class RamalStationAdapter extends ArrayAdapter<String> {
 
 	@Override
 	public View getView(int position, View convertView, ViewGroup parent) {
-		View rowView = convertView;
+		ViewHolder holder;
+		int layout = R.layout.cell_ramal;
 
-		rowView = inflater.inflate(R.layout.cell_ramal, parent, false);
-
-		Station station = this.get(position);
+		final Station station = this.get(position);
 		station.backgroundColor = station.backgroundColor.replace("#", "");
 
-		TextView stationView = (TextView) rowView
-				.findViewById(R.id.ramal_station_name);
-		stationView.setText(station.name);
-		stationView.setBackgroundColor(Integer.parseInt(
-				station.backgroundColor, 16) + 0xFF000000);
+		if (convertView != null && convertView.findViewById(layout) != null) {
+			holder = (ViewHolder) convertView.getTag();
+		} else {
+			convertView = inflater.inflate(layout, parent, false);
+			holder = new ViewHolder(convertView);
+			convertView.setTag(holder);
+		}
 
-		TextView footer = (TextView) rowView
-				.findViewById(R.id.ramal_station_indicator_footer);
-		footer.setBackgroundColor(Integer.parseInt(
-				station.backgroundColor, 16) + 0xFF000000);
+		holder.setStation(station);
 		
-		LinearLayout border = (LinearLayout) rowView
-				.findViewById(R.id.ramal_station_indicator_border);
-		border.setBackgroundColor(Integer.parseInt(
-				station.backgroundColor, 16) + 0xFF000000);
-		
-		TextView startIndicator = (TextView) rowView
-				.findViewById(R.id.ramal_start_direction);
-		startIndicator.setText(station.startDirection);
-		
-		TextView startDirectionStatus = (TextView) rowView
-				.findViewById(R.id.ramal_start_direction_status);
-		startDirectionStatus.setText(station.startDirectionStatus);
-
-		TextView endDirection = (TextView) rowView
-				.findViewById(R.id.ramal_end_direction);
-		endDirection.setText(station.endDirection);
-
-		TextView endDirectionStatus = (TextView) rowView
-				.findViewById(R.id.ramal_end_direction_status);
-		endDirectionStatus.setText(station.endDirectionStatus);
-
-		return rowView;
+		return convertView;
 	}
 
 	@Override
@@ -77,5 +54,54 @@ public class RamalStationAdapter extends ArrayAdapter<String> {
 
 	public Station get(int position) {
 		return this.datasource.get(position);
+	}
+
+	static class ViewHolder {
+
+		TextView stationView;
+		TextView footer;
+		LinearLayout border;
+
+		TextView startIndicator;
+		TextView startDirectionStatus;
+
+		TextView endDirection;
+		TextView endDirectionStatus;
+
+		public ViewHolder(View view) {
+			stationView = (TextView) view.findViewById(R.id.ramal_station_name);
+			footer = (TextView) view
+					.findViewById(R.id.ramal_station_indicator_footer);
+			border = (LinearLayout) view
+					.findViewById(R.id.ramal_station_indicator_border);
+
+			startIndicator = (TextView) view
+					.findViewById(R.id.ramal_start_direction);
+			startDirectionStatus = (TextView) view
+					.findViewById(R.id.ramal_start_direction_status);
+
+			endDirection = (TextView) view
+					.findViewById(R.id.ramal_end_direction);
+			endDirectionStatus = (TextView) view
+					.findViewById(R.id.ramal_end_direction_status);
+		}
+
+		public void setStation(Station station) {
+			stationView.setText(station.name);
+			stationView.setBackgroundColor(Integer.parseInt(
+					station.backgroundColor, 16) + 0xFF000000);
+
+			footer.setBackgroundColor(Integer.parseInt(station.backgroundColor,
+					16) + 0xFF000000);
+
+			border.setBackgroundColor(Integer.parseInt(station.backgroundColor,
+					16) + 0xFF000000);
+
+			startIndicator.setText(station.startDirection);
+			startDirectionStatus.setText(station.startDirectionStatus);
+
+			endDirection.setText(station.endDirection);
+			endDirectionStatus.setText(station.endDirectionStatus);
+		}
 	}
 }
