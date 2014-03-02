@@ -68,7 +68,7 @@ public class RamalStationAdapter extends ArrayAdapter<String> {
 		TextView endDirection;
 		TextView endDirectionStatus;
 
-		public ViewHolder(View view) {
+		public ViewHolder(final View view) {
 			stationView = (TextView) view.findViewById(R.id.ramal_station_name);
 			footer = (TextView) view
 					.findViewById(R.id.ramal_station_indicator_footer);

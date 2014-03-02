@@ -25,59 +25,33 @@ public class OtherAppsAdapter extends ArrayAdapter<App> {
 
 	private List<App> datasource;
 	private LayoutInflater inflater;
-	private ImageLoader imageLoader = ImageLoader.getInstance();
-	private DisplayImageOptions options;
-	private Activity ownerActivity;
+	protected static Activity ownerActivity;
 
 	public OtherAppsAdapter(Context context, int resource, List<App> objects) {
 		super(context, resource, objects);
 
 		this.inflater = LayoutInflater.from(context);
 		this.datasource = objects;
-		this.ownerActivity = (Activity) context;
+		ownerActivity = (Activity) context;
 	}
 
 	public View getView(final int position, View convertView, ViewGroup parent) {
-		View rowView = convertView;
-
+		ViewHolder holder;
 		final App app = getOccurrence(position);
 
 		int layout = R.layout.adapter_other_apps;
 
-		rowView = inflater.inflate(layout, parent, false);
+		if (convertView != null && convertView.findViewById(layout) != null) {
+			holder = (ViewHolder) convertView.getTag();
+		} else {
+			convertView = inflater.inflate(layout, parent, false);
+			holder = new ViewHolder(convertView);
+			convertView.setTag(holder);
+		}
 
-		TextView title = (TextView) rowView
-				.findViewById(R.id.adapter_other_apps_name);
-		title.setText(app.name);
+		holder.setApp(app);
 
-		ImageView tweetImage = (ImageView) rowView
-				.findViewById(R.id.adapter_other_apps_icon);
-		imageLoader.displayImage(app.icon, tweetImage, options);
-
-		rowView.setOnClickListener(new OnClickListener() {
-
-			@Override
-			public void onClick(View v) {
-				if (!PackageHelper.isExists(ownerActivity, app.bundle)) {
-					// Google Play
-					final Uri uri = Uri.parse("market://details?id="
-							+ app.bundle);
-					final Intent rateAppIntent = new Intent(Intent.ACTION_VIEW,
-							uri);
-
-					ownerActivity.startActivity(rateAppIntent);
-				} else {
-					// Open App
-					PackageManager manager = ownerActivity.getPackageManager();
-					Intent intent = manager
-							.getLaunchIntentForPackage(app.bundle);
-					intent.addCategory(Intent.CATEGORY_LAUNCHER);
-					ownerActivity.startActivity(intent);
-				}
-			}
-		});
-
-		return rowView;
+		return convertView;
 	}
 
 	@Override
@@ -89,4 +63,51 @@ public class OtherAppsAdapter extends ArrayAdapter<App> {
 		return this.datasource.get(position);
 	}
 
+	static class ViewHolder implements OnClickListener {
+
+		TextView title;
+		ImageView tweetImage;
+
+		static ImageLoader imageLoader = ImageLoader.getInstance();
+		static DisplayImageOptions options;
+
+		App app;
+		View view;
+
+		public ViewHolder(View view) {
+			this.view = view;
+
+			title = (TextView) view.findViewById(R.id.adapter_other_apps_name);
+
+			tweetImage = (ImageView) view
+					.findViewById(R.id.adapter_other_apps_icon);
+		}
+
+		public void setApp(final App app) {
+			this.app = app;
+
+			title.setText(app.name);
+
+			imageLoader.displayImage(app.icon, tweetImage, options);
+
+			view.setOnClickListener(this);
+		}
+
+		@Override
+		public void onClick(View v) {
+			if (!PackageHelper.isExists(ownerActivity, app.bundle)) {
+				// Google Play
+				final Uri uri = Uri.parse("market://details?id=" + app.bundle);
+				final Intent rateAppIntent = new Intent(Intent.ACTION_VIEW, uri);
+
+				ownerActivity.startActivity(rateAppIntent);
+			} else {
+				// Open App
+				PackageManager manager = ownerActivity.getPackageManager();
+				Intent intent = manager.getLaunchIntentForPackage(app.bundle);
+				intent.addCategory(Intent.CATEGORY_LAUNCHER);
+				ownerActivity.startActivity(intent);
+			}
+		}
+	}
 }
