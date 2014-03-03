@@ -27,23 +27,24 @@ public class TicketAdapter extends ArrayAdapter<Ticket> {
 
 	@Override
 	public View getView(int position, View convertView, ViewGroup parent) {
-		View rowView = convertView;
+		ViewHolder holder;
 
-		rowView = inflater.inflate(R.layout.cell_ticket, parent, false);
+		final Ticket ticket = this.get(position);
+		final int layout = R.layout.cell_ticket;
 
-		Ticket ticket = this.get(position);
-		
-		TextView nameView = (TextView) rowView
-				.findViewById(R.id.ticket_name);
-		nameView.setText(ticket.name);
-		
-		TextView priceView = (TextView) rowView
-				.findViewById(R.id.ticket_price);
-		priceView.setText(ticket.price);
-		
-		return rowView;
+		if (convertView != null && convertView.findViewById(layout) != null) {
+			holder = (ViewHolder) convertView.getTag();
+		} else {
+			convertView = inflater.inflate(layout, parent, false);
+			holder = new ViewHolder(convertView);
+			convertView.setTag(holder);
+		}
+
+		holder.setTicket(ticket);
+
+		return convertView;
 	}
-	
+
 	@Override
 	public int getCount() {
 		return this.datasource.size();
@@ -51,5 +52,21 @@ public class TicketAdapter extends ArrayAdapter<Ticket> {
 
 	public Ticket get(int position) {
 		return this.datasource.get(position);
+	}
+
+	static class ViewHolder {
+
+		TextView nameView;
+		TextView priceView;
+
+		public ViewHolder(View view) {
+			nameView = (TextView) view.findViewById(R.id.ticket_name);
+			priceView = (TextView) view.findViewById(R.id.ticket_price);
+		}
+
+		public void setTicket(final Ticket ticket) {
+			nameView.setText(ticket.name);
+			priceView.setText(ticket.price);
+		}
 	}
 }
