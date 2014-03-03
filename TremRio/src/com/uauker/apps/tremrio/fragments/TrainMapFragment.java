@@ -43,7 +43,7 @@ public class TrainMapFragment extends Fragment {
 
 		// Set the Drawable displayed
 		Drawable bitmap = getResources().getDrawable(
-				R.drawable.diagrama_de_rede);
+				R.drawable.diagrama_de_rede_supervia);
 		mImageView.setImageDrawable(bitmap);
 
 		// Attach a PhotoViewAttacher, which takes care of all of the zooming
