@@ -21,6 +21,7 @@
     <string name="tickets">Tarifas</string>
     <string name="stations">Estações</string>
     <string name="train_maps">Mapa de Trens</string>
+    <string name="metro_maps">Mapa do Metrô</string>
     <string name="useful_telephones">Telefones Úteis</string>
     
     <string name="without_internet">Verique sua conexão de internet ou tente novamente mais tarde.</string>

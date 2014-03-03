@@ -24,6 +24,7 @@ import android.widget.TextView;
 
 import com.bugsense.trace.BugSenseHandler;
 import com.uauker.apps.tremrio.R;
+import com.uauker.apps.tremrio.fragments.MetroMapFragment;
 import com.uauker.apps.tremrio.fragments.RamalFragment;
 import com.uauker.apps.tremrio.fragments.TelephoneFragment;
 import com.uauker.apps.tremrio.fragments.TicketFragment;
@@ -44,7 +45,7 @@ public class MainActivity extends ActionBarActivity {
 	public SharedPreferencesHelper sharedPreferences;
 
 	public Fragment[] fragments = { new RamalFragment(), new TicketFragment(),
-			new TrainMapFragment(), new TelephoneFragment() };
+			new TrainMapFragment(), new MetroMapFragment(), new TelephoneFragment() };
 
 	@SuppressLint("ResourceAsColor")
 	@Override
