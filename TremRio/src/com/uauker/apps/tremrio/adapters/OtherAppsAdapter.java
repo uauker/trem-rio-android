@@ -96,18 +96,26 @@ public class OtherAppsAdapter extends ArrayAdapter<App> {
 		@Override
 		public void onClick(View v) {
 			if (!PackageHelper.isExists(ownerActivity, app.bundle)) {
-				// Google Play
-				final Uri uri = Uri.parse("market://details?id=" + app.bundle);
-				final Intent rateAppIntent = new Intent(Intent.ACTION_VIEW, uri);
+				this.goToGooglePlay();
 
-				ownerActivity.startActivity(rateAppIntent);
-			} else {
-				// Open App
-				PackageManager manager = ownerActivity.getPackageManager();
-				Intent intent = manager.getLaunchIntentForPackage(app.bundle);
-				intent.addCategory(Intent.CATEGORY_LAUNCHER);
-				ownerActivity.startActivity(intent);
+				return;
 			}
+
+			this.goToApplication();
+		}
+		
+		public void goToGooglePlay() {
+			final Uri uri = Uri.parse("market://details?id=" + app.bundle);
+			final Intent rateAppIntent = new Intent(Intent.ACTION_VIEW, uri);
+
+			ownerActivity.startActivity(rateAppIntent);			
+		}
+		
+		public void goToApplication() {
+			PackageManager manager = ownerActivity.getPackageManager();
+			Intent intent = manager.getLaunchIntentForPackage(app.bundle);
+			intent.addCategory(Intent.CATEGORY_LAUNCHER);
+			ownerActivity.startActivity(intent);
 		}
 	}
 }
