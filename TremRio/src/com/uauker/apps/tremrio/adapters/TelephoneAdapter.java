@@ -27,17 +27,22 @@ public class TelephoneAdapter extends ArrayAdapter<String> {
 
 	@Override
 	public View getView(int position, View convertView, ViewGroup parent) {
-		View rowView = convertView;
+		ViewHolder holder;
 
-		rowView = inflater.inflate(R.layout.cell_telephone, parent, false);
+		final Telephone tel = this.get(position);
+		final int layout = R.layout.cell_telephone;
 
-		Telephone tel = this.get(position);
+		if (convertView != null && convertView.findViewById(layout) != null) {
+			holder = (ViewHolder) convertView.getTag();
+		} else {
+			convertView = inflater.inflate(layout, parent, false);
+			holder = new ViewHolder(convertView);
+			convertView.setTag(holder);
+		}
 
-		TextView telephoneName = (TextView) rowView
-				.findViewById(R.id.telephone_name);
-		telephoneName.setText(tel.name);
-
-		return rowView;
+		holder.setTelephone(tel);
+		
+		return convertView;
 	}
 
 	@Override
@@ -47,5 +52,18 @@ public class TelephoneAdapter extends ArrayAdapter<String> {
 
 	public Telephone get(int position) {
 		return this.datasource.get(position);
+	}
+
+	static class ViewHolder {
+
+		TextView telephoneName;
+
+		public ViewHolder(View view) {
+			telephoneName = (TextView) view.findViewById(R.id.telephone_name);
+		}
+
+		public void setTelephone(final Telephone tel) {
+			telephoneName.setText(tel.name);
+		}
 	}
 }
