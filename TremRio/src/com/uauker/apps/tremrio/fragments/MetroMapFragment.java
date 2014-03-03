@@ -1,11 +1,6 @@
 package com.uauker.apps.tremrio.fragments;
 
 import uk.co.senab.photoview.PhotoViewAttacher;
-
-import com.google.ads.AdView;
-import com.uauker.apps.tremrio.R;
-import com.uauker.apps.tremrio.helpers.BannerHelper;
-
 import android.app.Activity;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
@@ -17,6 +12,10 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
+
+import com.google.ads.AdView;
+import com.uauker.apps.tremrio.R;
+import com.uauker.apps.tremrio.helpers.BannerHelper;
 
 public class MetroMapFragment extends Fragment {
 	ImageView mImageView;
