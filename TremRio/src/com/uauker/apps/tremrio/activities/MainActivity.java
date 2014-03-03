@@ -29,6 +29,7 @@ import com.uauker.apps.tremrio.fragments.RamalFragment;
 import com.uauker.apps.tremrio.fragments.TelephoneFragment;
 import com.uauker.apps.tremrio.fragments.TicketFragment;
 import com.uauker.apps.tremrio.fragments.TrainMapFragment;
+import com.uauker.apps.tremrio.helpers.ConfigHelper;
 import com.uauker.apps.tremrio.helpers.SharedPreferencesHelper;
 
 @SuppressLint("NewApi")
@@ -45,15 +46,16 @@ public class MainActivity extends ActionBarActivity {
 	public SharedPreferencesHelper sharedPreferences;
 
 	public Fragment[] fragments = { new RamalFragment(), new TicketFragment(),
-			new TrainMapFragment(), new MetroMapFragment(), new TelephoneFragment() };
+			new TrainMapFragment(), new MetroMapFragment(),
+			new TelephoneFragment() };
 
 	@SuppressLint("ResourceAsColor")
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		
-		BugSenseHandler.initAndStartSession(MainActivity.this, "d0325253");
-		
+
+		this.setupBugSense();
+
 		setContentView(R.layout.activity_main);
 
 		menuNames = getResources().getStringArray(R.array.array_menu);
@@ -164,6 +166,12 @@ public class MainActivity extends ActionBarActivity {
 
 	private Fragment getFragmentByPosition(int position) {
 		return this.fragments[position];
+	}
+
+	private void setupBugSense() {
+		if (ConfigHelper.isProduction) {
+			BugSenseHandler.initAndStartSession(MainActivity.this, "d0325253");
+		}
 	}
 
 	public class MenuRowAdapter extends ArrayAdapter<String> {
