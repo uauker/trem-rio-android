@@ -3,7 +3,9 @@ package com.uauker.apps.tremrio.adapters;
 import java.util.List;
 
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.net.Uri;
@@ -12,6 +14,7 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -103,14 +106,32 @@ public class OtherAppsAdapter extends ArrayAdapter<App> {
 
 			this.goToApplication();
 		}
-		
-		public void goToGooglePlay() {
-			final Uri uri = Uri.parse("market://details?id=" + app.bundle);
-			final Intent rateAppIntent = new Intent(Intent.ACTION_VIEW, uri);
 
-			ownerActivity.startActivity(rateAppIntent);			
+		public void goToGooglePlay() {
+			try {
+				final Uri uri = Uri.parse("market://details?id=" + app.bundle);
+				final Intent rateAppIntent = new Intent(Intent.ACTION_VIEW, uri);
+
+				ownerActivity.startActivity(rateAppIntent);
+			} catch (Exception e) {
+				String message = String.format(
+						ownerActivity.getResources().getString(
+								(R.string.other_apps_google_play_not_found)),
+						this.app.name);
+
+				AlertDialog alertDialog = new AlertDialog.Builder(ownerActivity)
+						.create();
+				alertDialog.setMessage(message);
+				alertDialog.setButton(AlertDialog.BUTTON_NEUTRAL, "OK",
+						new DialogInterface.OnClickListener() {
+							public void onClick(DialogInterface dialog,
+									int which) {
+							}
+						});
+				alertDialog.show();
+			}
 		}
-		
+
 		public void goToApplication() {
 			PackageManager manager = ownerActivity.getPackageManager();
 			Intent intent = manager.getLaunchIntentForPackage(app.bundle);

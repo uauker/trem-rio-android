@@ -3,30 +3,23 @@
 
     <string name="app_name">Trem Rio</string>
     <string name="ADMOB_ID">a151a80892aab42</string>
-    
     <string name="action_settings">Configurações</string>
-    
     <string name="activity_settings">Configurações</string>
-
     <string name="drawer_open">Abrir menu</string>
     <string name="drawer_close">Fechar menu</string>
-    
     <string name="yes">Sim</string>
     <string name="no">Não</string>
     <string name="cancel">Cancelar</string>
-    
     <string name="call_to">Ligar para %s</string>
-    
     <string name="ramais">Ramais dos Trens</string>
     <string name="tickets">Tarifas</string>
     <string name="stations">Estações</string>
     <string name="train_maps">Mapa de Trens</string>
     <string name="metro_maps">Mapa do Metrô</string>
     <string name="useful_telephones">Telefones Úteis</string>
-    
     <string name="without_internet">Verique sua conexão de internet ou tente novamente mais tarde.</string>
-    <string name="without_internet_try_again">Tentar Novamente</string> 
-    
+    <string name="without_internet_try_again">Tentar Novamente</string>
+
     <!-- LIST -->
     <string name="empty_list"><![CDATA[Não há informações disponíveis nesse momento.]]></string>
 
@@ -36,18 +29,21 @@
     <!-- INTERNET FAILURE -->
     <string name="internet_failure">Verique sua conexão de internet ou tente novamente mais tarde.</string>
     <string name="internet_failure_try_again">Tentar Novamente</string>
-    
+
     <!-- MENU -->
     <string name="menu_refresh_list"><![CDATA[Carregando...]]></string>
-    
+
     <!-- MENU DE CONFIGURACAO -->
     <string name="menu_config_information_problem">Informe um problema</string>
     <string name="menu_config_review">Avalie o aplicativo</string>
     <string name="menu_config_share_app_for_android">Compartilhe o aplicativo</string>
     <string name="menu_config_others_apps">Outros aplicativos</string>
-    
-        <!-- EMAIL APP -->
+
+    <!-- EMAIL APP -->
     <string name="email_app_subject">Conheça o Trem Rio para Android</string>
     <string name="email_app_text">Baixe de graça o aplicativo do Trem Rio para Android.\n\n%s</string>
-    
+
+    <!-- OTHERS APPS -->
+    <string name="other_apps_google_play_not_found">Não foi possível acessar a loja de aplicativos. Busque no Google Play por %s.</string>
+
 </resources>
