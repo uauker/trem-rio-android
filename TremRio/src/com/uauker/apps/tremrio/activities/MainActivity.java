@@ -176,12 +176,8 @@ public class MainActivity extends ActionBarActivity {
 
 	public class MenuRowAdapter extends ArrayAdapter<String> {
 
-		private LayoutInflater inflater;
-
 		public MenuRowAdapter(Context context) {
 			super(context, 0);
-
-			this.inflater = LayoutInflater.from(context);
 		}
 
 		public View getView(final int position, View contentView,
@@ -192,7 +188,10 @@ public class MainActivity extends ActionBarActivity {
 			if (contentView != null && contentView.findViewById(layout) != null) {
 				holder = (ViewHolder) contentView.getTag();
 			} else {
-				contentView = inflater.inflate(layout, parent, false);
+				ViewGroup noRootView = null;
+				contentView = LayoutInflater.from(getContext()).inflate(layout,
+						noRootView);
+
 				holder = new ViewHolder(position, contentView);
 				contentView.setTag(holder);
 			}
