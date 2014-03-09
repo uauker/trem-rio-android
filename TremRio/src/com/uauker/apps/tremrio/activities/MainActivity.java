@@ -176,60 +176,87 @@ public class MainActivity extends ActionBarActivity {
 
 	public class MenuRowAdapter extends ArrayAdapter<String> {
 
+		private LayoutInflater inflater;
+
 		public MenuRowAdapter(Context context) {
 			super(context, 0);
+
+			this.inflater = LayoutInflater.from(context);
 		}
 
 		public View getView(final int position, View contentView,
 				ViewGroup parent) {
-			if (contentView == null) {
-				ViewGroup noRootView = null;
-				contentView = LayoutInflater.from(getContext()).inflate(
-						R.layout.item_list_menu, noRootView);
-			}
+			ViewHolder holder;
+			int layout = R.layout.item_list_menu;
 
-			sharedPreferences = SharedPreferencesHelper
-					.getInstance(getApplicationContext());
-
-			String selectedRowName = sharedPreferences.getString(
-					SELECTED_MENU_ROW, menuNames[0]);
-
-			String menuItem = menuNames[position];
-
-			TextView menuTitle = (TextView) contentView
-					.findViewById(R.id.item_list_menu_name);
-			menuTitle.setText(menuItem);
-
-			TextView menuSelectedIndicator = (TextView) contentView
-					.findViewById(R.id.item_list_menu_selected_indicator);
-
-			if (menuItem.equalsIgnoreCase(selectedRowName)) {
-				contentView.setBackgroundColor(getResources().getColor(
-						R.color.menu_selected_cell));
-				menuSelectedIndicator.setVisibility(View.VISIBLE);
-				menuTitle.setTextColor(getResources().getColor(R.color.white));
+			if (contentView != null && contentView.findViewById(layout) != null) {
+				holder = (ViewHolder) contentView.getTag();
 			} else {
-				contentView.setBackgroundColor(getResources().getColor(
-						R.color.white));
-				menuSelectedIndicator.setVisibility(View.GONE);
-				menuTitle.setTextColor(getResources().getColor(
-						R.color.menu_text_color_unselected));
+				contentView = inflater.inflate(layout, parent, false);
+				holder = new ViewHolder(position, contentView);
+				contentView.setTag(holder);
 			}
 
-			contentView.setOnClickListener(new View.OnClickListener() {
-				@Override
-				public void onClick(View v) {
-
-					sharedPreferences.setString(SELECTED_MENU_ROW,
-							menuNames[position]);
-
-					switchContentByPosition(position);
-
-					notifyDataSetChanged();
-				}
-			});
+			holder.setDataAndStyle();
 
 			return contentView;
+		}
+
+		class ViewHolder implements View.OnClickListener {
+
+			TextView menuTitle;
+			TextView menuSelectedIndicator;
+
+			View view;
+			final int position;
+
+			public ViewHolder(final int position, View view) {
+				this.position = position;
+				this.view = view;
+
+				menuTitle = (TextView) view
+						.findViewById(R.id.item_list_menu_name);
+
+				menuSelectedIndicator = (TextView) view
+						.findViewById(R.id.item_list_menu_selected_indicator);
+
+				view.setOnClickListener(this);
+			}
+
+			public void setDataAndStyle() {
+				final String menuItem = menuNames[position];
+				menuTitle.setText(menuItem);
+
+				sharedPreferences = SharedPreferencesHelper
+						.getInstance(getApplicationContext());
+
+				String selectedRowName = sharedPreferences.getString(
+						SELECTED_MENU_ROW, menuNames[0]);
+
+				if (menuItem.equalsIgnoreCase(selectedRowName)) {
+					this.view.setBackgroundColor(getResources().getColor(
+							R.color.menu_selected_cell));
+					menuSelectedIndicator.setVisibility(View.VISIBLE);
+					menuTitle.setTextColor(getResources().getColor(
+							R.color.white));
+				} else {
+					this.view.setBackgroundColor(getResources().getColor(
+							R.color.white));
+					menuSelectedIndicator.setVisibility(View.GONE);
+					menuTitle.setTextColor(getResources().getColor(
+							R.color.menu_text_color_unselected));
+				}
+			}
+
+			@Override
+			public void onClick(View v) {
+				sharedPreferences.setString(SELECTED_MENU_ROW,
+						menuNames[position]);
+
+				switchContentByPosition(position);
+
+				notifyDataSetChanged();
+			}
 		}
 
 	}
