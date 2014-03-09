@@ -188,6 +188,9 @@ public class MainActivity extends ActionBarActivity {
 						R.layout.item_list_menu, noRootView);
 			}
 
+			sharedPreferences = SharedPreferencesHelper
+					.getInstance(getApplicationContext());
+
 			String selectedRowName = sharedPreferences.getString(
 					SELECTED_MENU_ROW, menuNames[0]);
 
