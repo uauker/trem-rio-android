@@ -21,6 +21,7 @@ public class BannerHelper {
 			request.addTestDevice("47764E7BF45BF0D60DD4D7185D18B260");
 			request.addTestDevice("4D176AF8E94542B892FDDF9140EB3559");
 			request.addTestDevice("6AF90EF5508153744266469C93F16CFC");
+			request.addTestDevice("8276B4F8BB9A68E508809427509B0663");
 			request.addTestDevice(AdRequest.TEST_EMULATOR);
 		}
 
