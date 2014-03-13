@@ -2,6 +2,8 @@ package com.uauker.apps.tremrio.fragments;
 
 import uk.co.senab.photoview.PhotoViewAttacher;
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -37,19 +39,28 @@ public class MetroMapFragment extends Fragment {
 		View view = (RelativeLayout) inflater.inflate(
 				R.layout.train_map_fragment, container, false);
 
-		// Any implementation of ImageView can be used!
-		mImageView = (ImageView) view.findViewById(R.id.iv_photo);
+		try {
+			mImageView = (ImageView) view.findViewById(R.id.iv_photo);
 
-		// Set the Drawable displayed
-		Drawable bitmap = getResources().getDrawable(
-				R.drawable.diagrama_de_rede_metrorio);
-		mImageView.setImageDrawable(bitmap);
+			Drawable bitmap = getResources().getDrawable(
+					R.drawable.diagrama_de_rede_metrorio);
+			mImageView.setImageDrawable(bitmap);
 
-		// Attach a PhotoViewAttacher, which takes care of all of the zooming
-		// functionality.
-		mAttacher = new PhotoViewAttacher(mImageView);
+			mAttacher = new PhotoViewAttacher(mImageView);
 
-		this.adView = BannerHelper.setUpAdmob(view);
+			this.adView = BannerHelper.setUpAdmob(view);
+		} catch (OutOfMemoryError e) {
+			AlertDialog alertDialog = new AlertDialog.Builder(ownerActivity)
+					.create();
+			alertDialog.setMessage(ownerActivity.getResources()
+					.getString(R.string.out_of_memory));
+			alertDialog.setButton(AlertDialog.BUTTON_NEUTRAL, "OK",
+					new DialogInterface.OnClickListener() {
+						public void onClick(DialogInterface dialog, int which) {
+						}
+					});
+			alertDialog.show();
+		}
 
 		return view;
 	}

@@ -30,6 +30,9 @@
     <string name="internet_failure">Verique sua conexão de internet ou tente novamente mais tarde.</string>
     <string name="internet_failure_try_again">Tentar Novamente</string>
 
+    <!-- MEMORY FAILURE -->
+    <string name="out_of_memory">Não é possível mostrar a informação desejada por que o seu smartphone está com pouca memória.</string>
+    
     <!-- MENU -->
     <string name="menu_refresh_list"><![CDATA[Carregando...]]></string>
 
