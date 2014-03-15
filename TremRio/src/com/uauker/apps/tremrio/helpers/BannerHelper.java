@@ -34,22 +34,13 @@ public class BannerHelper {
 	}
 
 	private static Set<String> getKeywords() {
+		String words = "biscoito, seguro de moto, seguro de carro, supermercados, sabonetes, desodorantes, sabão em pó, shampoo, celular, futebol, seguro viagem, universidade, profissionalizante, curso de ingles, curso de informatica, sky, net, refrigerante, tv, promocao, cartao de credito, microondas";
+
 		Set<String> keywords = new HashSet<String>();
-		keywords.add("seguro carro");
-		keywords.add("celulares motorola com 2 chips");
-		keywords.add("venda de microondas");
-		keywords.add("celulares 3g");
-		keywords.add("microondas mabe");
-		keywords.add("microondas portatil");
-		keywords.add("marcas de geladeiras");
-		keywords.add("geladeira bivolt");
-		keywords.add("geladeira");
-		keywords.add("refrigerador frost free");
-		keywords.add("microondas");
-		keywords.add("tv internet");
-		keywords.add("oferta tv");
-		keywords.add("comprar tablet");
-		keywords.add("notebook");
+
+		for (String word : words.split(",")) {
+			keywords.add(word);
+		}
 
 		return keywords;
 	}
